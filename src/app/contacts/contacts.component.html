@@ -1,0 +1,83 @@
+<div class="row">
+    <form class="col s12" (ngSubmit)="onSubmit(contactF.form.value)" #contactF="ngForm">
+        <div class="row">
+            <div class="input-field col s4">
+                <input #firstName="ngModel" id="first_name" type="text" required class="validate"
+                [(ngModel)]="Model.first_name" name="first_name">
+                <label for="first_name">Prénom</label>
+                <div *ngIf="firstName.invalid && (firstName.touched || firstName.dirty)" class="alert alert-danger">
+                    <div *ngIf="firstName.errors.required">
+                        Entrer un prénom valide!!
+                    </div>
+                </div>
+            </div>
+            <div class="input-field col s4">
+                <input #lastName="ngModel" id="last_name" type="text" required class="validate"
+                [(ngModel)]="Model.last_name" name="last_name">
+                <label for="last_name">Nom</label>
+                <div *ngIf="lastName.invalid && (lastName.touched || lastName.dirty)" class="alert alert-danger">
+                    <div *ngIf="lastName.errors.required">
+                        Entrer un nom valide!!
+                    </div>
+                </div>
+            </div>
+            <div class="input-field col s4">
+                <input #gender="ngModel" id="gender" type="text" required class="validate"
+                [(ngModel)]="Model.gender" name="gender">
+                <label for="gender">Genre</label>
+                <div *ngIf="gender.invalid && (gender.touched || gender.dirty)" class="alert alert-danger">
+                    <div *ngIf="gender.errors.required">
+                        Entrer un genre valide!!
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s4">
+                <input #email="ngModel" id="email" type="email" required class="validate"
+                [(ngModel)]="Model.email" name="email">
+                <label for="email">Courriel</label>
+                <div *ngIf="email.invalid && (email.touched || email.dirty)" class="alert alert-danger">
+                    <div *ngIf="email.errors.required">
+                        Entrer un Email valide!!
+                    </div>
+                </div>
+            </div>
+            <div class="input-field col s4 form-group">
+                <select #company="ngModel" class="form-control" id="company" materialize="material_select"
+                [(ngModel)]="Model.company" name="company">
+                    <option value="" disabled selected>Choisir la compagnie</option>
+                    <option *ngFor="let companyy of compagnies" [value]="companyy">{{companyy}}</option>
+                </select>
+                <!-- <input id="company" type="text" required class="validate">
+                <label for="company">Compagnie</label> -->
+            </div>
+            <button class="waves-effect waves-light btn" id="btn" type="submit"
+            [disabled]="!contactF.form.valid">Ajouter contact</button>
+        </div>
+    </form>
+</div>
+<div class="row">
+    <div class="col s12 m4" *ngFor="let contact of Model" [@contactsAnimation]="state">
+        <div class="card blue-grey darken-1">
+            <div class="card-image">
+                
+                <img src="http://images.pexels.com/photos/91227/pexels-photo-91227.jpeg">
+                <span class="card-title">{{ contact.first_name}} {{ contact.last_name }}</span>
+            </div>
+            <div class="card-content white-text">
+                <span class="card-title">Details</span>
+                <p>Courriel: {{contact.email}}</p>
+                <p>Genre: {{contact.gender}}</p>
+            </div>
+            <div class="card-action">
+                <a href="#">{{ contact.company }}</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="row">
+    <input (keyup)="onKey($event)">
+    <p>{{ values }}</p>
+</div> -->
